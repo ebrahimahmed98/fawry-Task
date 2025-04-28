@@ -33,9 +33,12 @@ how to handle errors in screen when excuting command :
 **firest we need to check the DNS records by command **
 _cat /etc/resolv.conf_
 
+
 **then we need to Test resolution with system DNS**
 _nslookup internal.example.com
 dig internal.example.com_
+
+
 
 
 **also test the esolution with Google DNS**
@@ -50,6 +53,8 @@ If system DNS works but 8.8.8.8 fails: Internal-only DNS record
 
 
 
+
+
 **after we are having the IP from dig command **
 say its 192.168.1.110
 **then we have to ceck the connectivity by telnet command on web ports **
@@ -59,16 +64,24 @@ https port : 443
 _telnet 192.168.1.110 80
 telnet 192.168.1.110 443_
 
+
+
 **we need aslo the Check if service is listening by : **
 _sudo netstat -tulnp | grep ':80\|:443'_
 
 
+
+
 **IN a preif the possible cases that leads to thi issue is :-**
+
+
 
 **DNS Record Missing**
 we need to Compare dig output from authoritative DNS vs recursive
 and the solution is : Update DNS zone
 _sudo rndc reload example.com_
+
+
 
 **DNS Cache Issues**
 we have to Clear cache and retest by flushing DNS 
@@ -76,6 +89,8 @@ _sudo systemd-resolve --flush-caches_
 or
 _sudo systemctl restart nscd
 _
+
+
 
 **Local /etc/hosts Override**
 Check for existing servers or hosts and Remove or correct any internal.example.com matches the same one 
