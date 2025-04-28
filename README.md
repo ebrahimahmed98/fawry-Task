@@ -26,3 +26,71 @@ the commpination of multi attripute
 
 how to handle errors in screen when excuting command :
 ./mygrep.sh -v testfile.txt
+
+
+Q2
+
+firest we need to check the DNS records by command 
+cat /etc/resolv.conf
+
+then we need to Test resolution with system DNS
+nslookup internal.example.com
+dig internal.example.com
+
+
+also test the esolution with Google DNS
+nslookup internal.example.com 8.8.8.8
+dig internal.example.com @8.8.8.8
+
+If both fail: DNS record may be missing or propagation issue
+
+If system DNS fails but 8.8.8.8 works: Local DNS misconfiguration
+
+If system DNS works but 8.8.8.8 fails: Internal-only DNS record
+
+
+
+after we havin the IP from dig command 
+say its 192.168.1.110
+then we have to ceck the connectivity by telnet command on web ports 
+http port : 80 
+https port : 443
+
+telnet 192.168.1.110 80
+telnet 192.168.1.110 443
+
+we need aslo the Check if service is listening by : 
+sudo netstat -tulnp | grep ':80\|:443'
+
+
+IN a preif the possible cases that leads to thi issue is :-
+
+DNS Record Missing
+we need to Compare dig output from authoritative DNS vs recursive
+and the solution is : Update DNS zone
+sudo rndc reload example.com
+
+DNS Cache Issues
+we have to Clear cache and retest by flushing DNS 
+sudo systemd-resolve --flush-caches
+or
+sudo systemctl restart nscd
+
+
+Local /etc/hosts Override
+Check for existing servers or hosts and Remove or correct any internal.example.com matches the same one 
+sudo nano /etc/hosts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
