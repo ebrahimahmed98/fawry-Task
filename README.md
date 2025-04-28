@@ -7,9 +7,11 @@ q1
 here is the output of the command of ./mygrep.sh hello testfile.txt
 
 
+
 ![-n ](https://github.com/user-attachments/assets/bacdd056-5542-4f89-ac55-7bd0e117c4cc)
 
 screenshot to get the count of lines with command ./mygrep.sh -n hello testfile.txt
+
 
 
 
@@ -17,6 +19,7 @@ screenshot to get the count of lines with command ./mygrep.sh -n hello testfile.
 
 the commpination of multi attripute 
 ./mygrep.sh -vn hello testfile.txt
+
 
 
 ![-v error](https://github.com/user-attachments/assets/2f2ec641-c9f5-499c-9696-6eeb1938939e)
